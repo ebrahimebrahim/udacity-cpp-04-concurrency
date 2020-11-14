@@ -82,7 +82,8 @@ void TrafficLight::cycleThroughPhases()
             // toggle the current phase of the traffic light between red and green
             _currentPhase = (_currentPhase==TrafficLightPhase::GREEN) ? TrafficLightPhase::RED : TrafficLightPhase::GREEN;
 
-            // TODO send an update method to the message queue using move semantics
+            // send an update method to the message queue using move semantics
+            _messageQueue.send(TrafficLightPhase(_currentPhase));
 
             // reset stop watch for next cycle
             lastUpdate = std::chrono::system_clock::now();
