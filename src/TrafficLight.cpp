@@ -73,7 +73,10 @@ void TrafficLight::cycleThroughPhases()
         long timeSinceLastUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - lastUpdate).count();
         if (timeSinceLastUpdate >= cycleDuration)
         {
-            // stuff
+            // toggle the current phase of the traffic light between red and green
+            _currentPhase = (_currentPhase==TrafficLightPhase::GREEN) ? TrafficLightPhase::RED : TrafficLightPhase::GREEN;
+
+            // TODO send an update method to the message queue using move semantics
 
             // reset stop watch for next cycle
             lastUpdate = std::chrono::system_clock::now();
