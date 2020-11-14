@@ -23,6 +23,7 @@ class MessageQueue
 public:
     void send(T && msg);
     T receive();
+    bool empty() {return _queue.empty();}
 private:
     std::deque<T> _queue;
     mutable std::mutex _mutex;
