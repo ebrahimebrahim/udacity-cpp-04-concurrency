@@ -36,17 +36,16 @@ void TrafficLight::waitForGreen()
     // Once it receives TrafficLightPhase::green, the method returns.
 }
 
-TrafficLightPhase TrafficLight::getCurrentPhase()
-{
-    return _currentPhase;
-}
+*/
+
 
 void TrafficLight::simulate()
 {
     // FP.2b : Finally, the private method „cycleThroughPhases“ should be started in a thread when the public method „simulate“ is called. To do this, use the thread queue in the base class. 
+    threads.emplace_back(&TrafficLight::cycleThroughPhases,this);
 }
 
-*/
+
 
 // function which is executed in a thread
 void TrafficLight::cycleThroughPhases()
@@ -80,6 +79,11 @@ void TrafficLight::cycleThroughPhases()
 
             // reset stop watch for next cycle
             lastUpdate = std::chrono::system_clock::now();
+
+            // { // This block is to test things. TODO delete this block
+            //     std::lock_guard<std::mutex> lock(_mtx);
+            //     std::cout << "PHASE SWITCH! It's now " << ((_currentPhase==TrafficLightPhase::GREEN) ? "green" : "red") << std::endl;
+            // }
         }
     }
 
