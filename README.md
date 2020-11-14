@@ -1,5 +1,13 @@
 # CPPND: Program a Concurrent Traffic Simulation
 
+---
+
+## Forked
+
+This project is forked by Ebrahim, to be a solution to assignment 4 of the udacity c++ course.
+
+---
+
 <img src="data/traffic_simulation.gif"/>
 
 This is the project for the fourth course in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213): Concurrency. 
