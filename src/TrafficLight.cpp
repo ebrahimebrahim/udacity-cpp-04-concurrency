@@ -94,10 +94,10 @@ void TrafficLight::cycleThroughPhases()
             // reset stop watch for next cycle
             lastUpdate = std::chrono::system_clock::now();
 
-            // { // This block is to test things. TODO delete this block
-            //     std::lock_guard<std::mutex> lock(_mtx);
-            //     std::cout << "PHASE SWITCH! It's now " << ((_currentPhase==TrafficLightPhase::GREEN) ? "green" : "red") << std::endl;
-            // }
+            { // This block is to test things. TODO delete this block
+                std::lock_guard<std::mutex> lock(_mtx);
+                std::cout << "PHASE SWITCH! It's now " << ((getCurrentPhase()==TrafficLightPhase::GREEN) ? "green" : "red") << std::endl;
+            }
         }
     }
 
