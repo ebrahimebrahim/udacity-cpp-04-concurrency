@@ -23,7 +23,7 @@ class MessageQueue
 public:
     void send(T && msg);
     T receive();
-    bool empty() {return _queue.empty();}
+    bool empty() const;
 private:
     std::deque<T> _queue;
     mutable std::mutex _mutex;
@@ -41,13 +41,13 @@ class TrafficLight : public TrafficObject
 public:
     // constructor / desctructor
 
-    TrafficLight() {}
+    TrafficLight();
 
     // getters / setters
-    TrafficLightPhase getCurrentPhase() { return _currentPhase; }
+    TrafficLightPhase getCurrentPhase() const;
 
     // typical behaviour methods
-    void waitForGreen();
+    void waitForGreen() const;
     void simulate() override;
 
 
@@ -59,10 +59,10 @@ private:
     // FP.4b : create a private member of type MessageQueue for messages of type TrafficLightPhase 
     // and use it within the infinite loop to push each new TrafficLightPhase into it by calling 
     // send in conjunction with move semantics.
-    MessageQueue<TrafficLightPhase> _messageQueue;
+    mutable MessageQueue<TrafficLightPhase> _messageQueue;
 
-    std::condition_variable _condition;
-    std::mutex _mutex;
+    // std::condition_variable _condition; // This was in the project's initial setup, but I'm not sure what it's for...
+    mutable std::mutex _mutex;
 };
 
 #endif

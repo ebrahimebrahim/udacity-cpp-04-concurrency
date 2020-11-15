@@ -28,16 +28,28 @@ void MessageQueue<T>::send(T &&msg)
     _condvar.notify_one();
 }
 
+template <typename T>
+bool MessageQueue<T>::empty() const {
+    std::lock_guard<std::mutex> lock(_mutex);
+    return _queue.empty();
+}
+
+
 /* Implementation of class "TrafficLight" */
 
-/* 
+
 TrafficLight::TrafficLight()
 {
-    _currentPhase = TrafficLightPhase::red;
+    _currentPhase = TrafficLightPhase::RED;
 }
-*/
 
-void TrafficLight::waitForGreen()
+TrafficLightPhase TrafficLight::getCurrentPhase() const
+{
+    std::lock_guard<std::mutex> lock(_mutex);
+    return _currentPhase;
+}
+
+void TrafficLight::waitForGreen() const
 {
     // FP.5b : add the implementation of the method waitForGreen, in which an infinite while-loop 
     // runs and repeatedly calls the receive function on the message queue. 
